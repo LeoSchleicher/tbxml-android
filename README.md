@@ -1,3 +1,12 @@
+# Why this fork exists?
+
+*tbxml-android* is a fastest XML parser on android platform in case of really large XML files (more as 1 Mb), but original version fails on arm64 processors (by working with UTF-8 strings there is a known problem by converting UTF-8 to UTF-8-modified encoding). Result is broken characters in CDATA sections.
+I've just removed a pair of memcpy calls by parsing CDATAs. It's probably a very dirty solution, while I am not a C programmer, but it somehow works.
+I have done no tests.
+
+## Warning - included so are original old so, ndk-build is required!
+
+
 tbxml-android: version 1.00.0
 
 # TBXML - Android NDK port
