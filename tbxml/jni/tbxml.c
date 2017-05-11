@@ -474,12 +474,13 @@ void decodeBytes(TBXMLDocument *document)
 					long CDATALength = CDATAEnd-elementStart;
 					long textLength  = elementEnd-elementStart;
 
+          // memcpy breaks strings on arm64 and probably redundant here, as trim performed later anyway
 					//memcpy(elementStart,elementStart+9,CDATAEnd-elementStart-9);
 					//memcpy(CDATAEnd-9,CDATAEnd+3,textLength-CDATALength-3);
 					//memset(elementStart+textLength-12,' ',12);
-                       
-                       memset(elementStart,' ',9);
-                       memset(CDATAEnd,' ',3);
+
+           memset(elementStart,' ',9); // Just overwrite CDATA tags with spaces
+           memset(CDATAEnd,' ',3);     // end tag also
 
 					elementStart = CDATAEnd;
 					continue;
@@ -744,5 +745,3 @@ TBXMLAttribute *nextAvailableAttribute(TBXMLDocument *document) {
 
 	return &document->currentAttributeBuffer->attributes[document->currentAttribute];
 }
-
-
